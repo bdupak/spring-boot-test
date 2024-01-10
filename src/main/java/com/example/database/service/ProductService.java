@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProductService {
@@ -18,6 +19,7 @@ public class ProductService {
   @Autowired
   private ProductMapper mapper;
 
+  @Transactional
   public ProductDto getProductById(final Long productId) throws NotFoundException {
     final Optional<Product> productFromDb = repository.findById(productId);
     if (productFromDb.isEmpty()) {
@@ -26,14 +28,17 @@ public class ProductService {
     return mapper.convertToDto(productFromDb.get());
   }
 
+  @Transactional
   public Product saveProduct(final ProductDto product) {
     return repository.save(mapper.convertDtoToModel(product));
   }
 
+  @Transactional
   public List<ProductDto> getProducts() {
     return mapper.convertToDto(repository.findAll());
   }
 
+  @Transactional
   public Product updateProduct(final ProductDto product) throws NotFoundException {
     final Optional<Product> productFromDb = repository.findById(product.getId());
     if (productFromDb.isEmpty()) {
@@ -51,6 +56,7 @@ public class ProductService {
     return repository.save(productFromDb.get());
   }
 
+  @Transactional
   public Product deleteProduct(final Long productId) throws NotFoundException {
     final Optional<Product> productFromDb = repository.findById(productId);
     if (productFromDb.isEmpty()) {

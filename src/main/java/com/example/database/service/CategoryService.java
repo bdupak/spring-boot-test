@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CategoryService {
@@ -18,6 +19,7 @@ public class CategoryService {
   @Autowired
   private CategoryMapper mapper;
 
+  @Transactional
   public CategoryDto getCategoryById(final Long categoryId) throws NotFoundException {
     final Optional<Category> categoryFromDb = repository.findById(categoryId);
     if (categoryFromDb.isEmpty()) {
@@ -26,14 +28,17 @@ public class CategoryService {
     return mapper.convertToDto(categoryFromDb.get());
   }
 
+  @Transactional
   public Category saveCategory(final CategoryDto category) {
     return repository.save(mapper.convertFromDtoToModel(category));
   }
 
+  @Transactional
   public List<CategoryDto> getCategories() {
     return mapper.convertToDto(repository.findAll());
   }
 
+  @Transactional
   public Category updateCategory(final CategoryDto category) throws NotFoundException {
     final Optional<Category> categoryFromDb = repository.findById(category.getId());
     if (categoryFromDb.isEmpty()) {
@@ -46,6 +51,7 @@ public class CategoryService {
     return repository.save(categoryFromDb.get());
   }
 
+  @Transactional
   public Category deleteCategory(final Long categoryId) throws NotFoundException {
     final Optional<Category> categoryFromDb = repository.findById(categoryId);
     if (categoryFromDb.isEmpty()) {
