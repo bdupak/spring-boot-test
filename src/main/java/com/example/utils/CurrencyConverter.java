@@ -4,6 +4,7 @@ import com.example.database.dto.CurrencyDto;
 import com.example.database.model.Product;
 import com.example.exception.NotFoundException;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,11 @@ public class CurrencyConverter {
       if (Objects.nonNull(currencyDto) && Objects.nonNull(currencyDto.getRates())) {
         exchangeRate = currencyDto.getRates().get(product.getCurrency());
         if (Objects.nonNull(exchangeRate)) {
-          product.setPrice(product.getPrice().multiply(exchangeRate));
+          final int precision = product.getPrice().precision() + 4;
+          final MathContext mathContext = new MathContext(precision, RoundingMode.HALF_UP);
+          final BigDecimal newPrice =
+              product.getPrice().divide(exchangeRate, mathContext);
+          product.setPrice(newPrice);
           product.setCurrency(DEFAULT_CURRENCY);
         } else {
           throw new NotFoundException(
