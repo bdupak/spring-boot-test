@@ -17,5 +17,6 @@ public class ProductDto {
   private Integer weight;
   private String imageUrl;
   private Category category;
+  private String categoryPath;
   private Boolean isDeleted;
 }
