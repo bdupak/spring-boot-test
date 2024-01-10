@@ -29,7 +29,8 @@ public class ProductController {
   }
 
   @PostMapping("/product")
-  public ResponseEntity<Product> createProduct(@RequestBody final ProductDto product) {
+  public ResponseEntity<Product> createProduct(@RequestBody final ProductDto product)
+      throws NotFoundException {
     return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.OK);
   }
 

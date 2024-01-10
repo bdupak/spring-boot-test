@@ -29,7 +29,7 @@ public class ProductService {
   }
 
   @Transactional
-  public Product saveProduct(final ProductDto product) {
+  public Product saveProduct(final ProductDto product) throws NotFoundException {
     return repository.save(mapper.convertDtoToModel(product));
   }
 
