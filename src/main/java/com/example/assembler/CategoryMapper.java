@@ -3,6 +3,8 @@ package com.example.assembler;
 import com.example.database.dto.CategoryDto;
 import com.example.database.model.Category;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +14,14 @@ public class CategoryMapper {
   private ObjectMapper mapper;
 
   public CategoryDto convertToDto(final Category category) {
-    CategoryDto categoryDto = mapper.convertValue(category, CategoryDto.class);
-    return categoryDto;
+    return mapper.convertValue(category, CategoryDto.class);
+  }
+
+  public List<CategoryDto> convertToDto(final List<Category> categories) {
+    return categories.stream().map(this::convertToDto).collect(Collectors.toList());
+  }
+
+  public Category convertFromDtoToModel(final CategoryDto categoryDto) {
+    return mapper.convertValue(categoryDto, Category.class);
   }
 }
