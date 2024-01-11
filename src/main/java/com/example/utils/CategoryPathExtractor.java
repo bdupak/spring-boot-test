@@ -7,6 +7,9 @@ public class CategoryPathExtractor {
   private static final String DELIMITER = "/";
 
   public static String extractFullCategoryPath(final Category category) {
+    if(Objects.isNull(category)) {
+      return null;
+    }
     StringBuilder fullCategoryPath = new StringBuilder(category.getName());
     Category ancestor = category.getFatherCategory();
 
