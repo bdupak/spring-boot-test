@@ -8,9 +8,9 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
-@Configuration
+@Component
 public class CurrencyConverter {
 
   public static final String DEFAULT_CURRENCY = "EUR";
