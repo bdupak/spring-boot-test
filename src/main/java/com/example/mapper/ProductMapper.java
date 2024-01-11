@@ -1,4 +1,4 @@
-package com.example.assembler;
+package com.example.mapper;
 
 import com.example.database.dto.ProductDto;
 import com.example.database.model.Product;

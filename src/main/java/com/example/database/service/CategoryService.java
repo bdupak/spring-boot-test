@@ -1,6 +1,6 @@
 package com.example.database.service;
 
-import com.example.assembler.CategoryMapper;
+import com.example.mapper.CategoryMapper;
 import com.example.database.dto.CategoryDto;
 import com.example.database.model.Category;
 import com.example.database.repository.CategoryRepository;
@@ -29,8 +29,8 @@ public class CategoryService {
   }
 
   @Transactional
-  public Category saveCategory(final CategoryDto category) {
-    return repository.save(mapper.convertFromDtoToModel(category));
+  public CategoryDto saveCategory(final CategoryDto category) {
+    return mapper.convertToDto(repository.save(mapper.convertFromDtoToModel(category)));
   }
 
   @Transactional
@@ -39,26 +39,24 @@ public class CategoryService {
   }
 
   @Transactional
-  public Category updateCategory(final CategoryDto category) throws NotFoundException {
+  public CategoryDto updateCategory(final CategoryDto category) throws NotFoundException {
     final Optional<Category> categoryFromDb = repository.findById(category.getId());
     if (categoryFromDb.isEmpty()) {
       throw new NotFoundException("Category not found with id = " + category.getId());
     }
-    categoryFromDb.get().setName(category.getName());
-    categoryFromDb.get().setFatherCategory(category.getFatherCategory());
-    categoryFromDb.get().setIsDeleted(category.getIsDeleted());
+    final Category updatedCategory = mapper.convertFromDtoToModel(category);
 
-    return repository.save(categoryFromDb.get());
+    return mapper.convertToDto(repository.save(updatedCategory));
   }
 
   @Transactional
-  public Category deleteCategory(final Long categoryId) throws NotFoundException {
+  public CategoryDto deleteCategory(final Long categoryId) throws NotFoundException {
     final Optional<Category> categoryFromDb = repository.findById(categoryId);
     if (categoryFromDb.isEmpty()) {
       throw new NotFoundException("Category not found with id = " + categoryId);
     }
     categoryFromDb.get().setIsDeleted(true);
 
-    return repository.save(categoryFromDb.get());
+    return mapper.convertToDto(repository.save(categoryFromDb.get()));
   }
 }

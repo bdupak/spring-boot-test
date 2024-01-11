@@ -29,7 +29,7 @@ public class ProductController {
   }
 
   @PostMapping("/product")
-  public ResponseEntity<Product> createProduct(@RequestBody final ProductDto product)
+  public ResponseEntity<ProductDto> createProduct(@RequestBody final ProductDto product)
       throws NotFoundException {
     return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.OK);
   }
@@ -40,13 +40,13 @@ public class ProductController {
   }
 
   @PutMapping("/product")
-  public ResponseEntity<Product> updateProduct(@RequestBody final ProductDto product)
+  public ResponseEntity<ProductDto> updateProduct(@RequestBody final ProductDto product)
       throws NotFoundException {
     return new ResponseEntity<>(productService.updateProduct(product), HttpStatus.OK);
   }
 
   @DeleteMapping("/product/{id}")
-  public ResponseEntity<Product> deleteProduct(@PathVariable("id") final Long productId)
+  public ResponseEntity<ProductDto> deleteProduct(@PathVariable("id") final Long productId)
       throws NotFoundException {
     return new ResponseEntity<>(productService.deleteProduct(productId), HttpStatus.OK);
   }

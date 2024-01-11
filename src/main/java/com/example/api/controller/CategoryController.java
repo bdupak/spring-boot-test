@@ -31,7 +31,7 @@ public class CategoryController {
   }
 
   @PostMapping("/category")
-  public ResponseEntity<Category> saveCategory(@RequestBody final CategoryDto category) {
+  public ResponseEntity<CategoryDto> saveCategory(@RequestBody final CategoryDto category) {
     LOGGER.info("category: {}", category);
     return new ResponseEntity<>(categoryService.saveCategory(category), HttpStatus.OK);
   }
@@ -42,13 +42,13 @@ public class CategoryController {
   }
 
   @PutMapping("/category")
-  public ResponseEntity<Category> updateCategory(@RequestBody final CategoryDto category)
+  public ResponseEntity<CategoryDto> updateCategory(@RequestBody final CategoryDto category)
       throws NotFoundException {
     return new ResponseEntity<>(categoryService.updateCategory(category), HttpStatus.OK);
   }
 
   @DeleteMapping("/category/{id}")
-  public ResponseEntity<Category> deleteCategory(@PathVariable("id") final Long categoryId)
+  public ResponseEntity<CategoryDto> deleteCategory(@PathVariable("id") final Long categoryId)
       throws NotFoundException {
     return new ResponseEntity<>(categoryService.deleteCategory(categoryId), HttpStatus.OK);
   }

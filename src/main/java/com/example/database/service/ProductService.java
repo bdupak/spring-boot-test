@@ -1,6 +1,6 @@
 package com.example.database.service;
 
-import com.example.assembler.ProductMapper;
+import com.example.mapper.ProductMapper;
 import com.example.database.dto.ProductDto;
 import com.example.database.model.Product;
 import com.example.database.repository.ProductRepository;
@@ -29,8 +29,8 @@ public class ProductService {
   }
 
   @Transactional
-  public Product saveProduct(final ProductDto product) throws NotFoundException {
-    return repository.save(mapper.convertDtoToModel(product));
+  public ProductDto saveProduct(final ProductDto product) throws NotFoundException {
+    return mapper.convertToDto(repository.save(mapper.convertDtoToModel(product)));
   }
 
   @Transactional
@@ -39,31 +39,24 @@ public class ProductService {
   }
 
   @Transactional
-  public Product updateProduct(final ProductDto product) throws NotFoundException {
+  public ProductDto updateProduct(final ProductDto product) throws NotFoundException {
     final Optional<Product> productFromDb = repository.findById(product.getId());
     if (productFromDb.isEmpty()) {
       throw new NotFoundException("Product not found with id = " + product.getId());
     }
-    productFromDb.get().setName(product.getName());
-    productFromDb.get().setOverview(product.getOverview());
-    productFromDb.get().setPrice(product.getPrice());
-    productFromDb.get().setCurrency(product.getCurrency());
-    productFromDb.get().setWeight(product.getWeight());
-    productFromDb.get().setImageUrl(product.getImageUrl());
-    productFromDb.get().setCategory(product.getCategory());
-    productFromDb.get().setIsDeleted(product.getIsDeleted());
+    final Product updatedProduct = mapper.convertDtoToModel(product);
 
-    return repository.save(productFromDb.get());
+    return mapper.convertToDto(repository.save(updatedProduct));
   }
 
   @Transactional
-  public Product deleteProduct(final Long productId) throws NotFoundException {
+  public ProductDto deleteProduct(final Long productId) throws NotFoundException {
     final Optional<Product> productFromDb = repository.findById(productId);
     if (productFromDb.isEmpty()) {
       throw new NotFoundException("Product not found with id = " + productId);
     }
     productFromDb.get().setIsDeleted(true);
 
-    return repository.save(productFromDb.get());
+    return mapper.convertToDto(repository.save(productFromDb.get()));
   }
 }
