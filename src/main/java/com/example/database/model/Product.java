@@ -11,10 +11,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Data
 @Table(name = "product")
+@Where(clause = "is_deleted=false")
 public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,5 +32,5 @@ public class Product {
   @JoinColumn(name = "category_fk")
   private Category category;
   @Column(name = "is_deleted")
-  private Boolean isDeleted;
+  private Boolean isDeleted = Boolean.FALSE;
 }
