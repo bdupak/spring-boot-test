@@ -1,7 +1,6 @@
 package com.example.api.controller;
 
 import com.example.database.dto.ProductDto;
-import com.example.database.model.Product;
 import com.example.database.service.ProductService;
 import com.example.exception.NotFoundException;
 import java.util.List;
@@ -14,38 +13,40 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/product")
 public class ProductController {
 
   @Autowired
   private ProductService productService;
 
-  @GetMapping("/product/{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<ProductDto> retrieveProductById(@PathVariable("id") final Long productId)
       throws NotFoundException {
     return new ResponseEntity<>(productService.getProductById(productId), HttpStatus.OK);
   }
 
-  @PostMapping("/product")
+  @PostMapping()
   public ResponseEntity<ProductDto> createProduct(@RequestBody final ProductDto product)
       throws NotFoundException {
     return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.OK);
   }
 
-  @GetMapping("/products") //TODO should be product
+  @GetMapping()
   public ResponseEntity<List<ProductDto>> retrieveProducts() {
     return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
   }
 
-  @PutMapping("/product")
+  @PutMapping()
   public ResponseEntity<ProductDto> updateProduct(@RequestBody final ProductDto product)
       throws NotFoundException {
     return new ResponseEntity<>(productService.updateProduct(product), HttpStatus.OK);
   }
 
-  @DeleteMapping("/product/{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<ProductDto> deleteProduct(@PathVariable("id") final Long productId)
       throws NotFoundException {
     return new ResponseEntity<>(productService.deleteProduct(productId), HttpStatus.NO_CONTENT);

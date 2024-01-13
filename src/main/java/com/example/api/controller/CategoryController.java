@@ -15,38 +15,40 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/category")
 public class CategoryController {
   private final static Logger LOGGER = LoggerFactory.getLogger(CategoryController.class);
   @Autowired
   private CategoryService categoryService;
 
-  @GetMapping("/category/{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<CategoryDto> retrieveCategoryById(@PathVariable("id") final Long categoryId)
       throws NotFoundException {
     return new ResponseEntity<>(categoryService.getCategoryById(categoryId), HttpStatus.OK);
   }
 
-  @PostMapping("/category")
+  @PostMapping()
   public ResponseEntity<CategoryDto> saveCategory(@RequestBody final CategoryDto category) {
     LOGGER.info("category: {}", category);
     return new ResponseEntity<>(categoryService.saveCategory(category), HttpStatus.OK);
   }
 
-  @GetMapping("/categories")
+  @GetMapping()
   public ResponseEntity<List<CategoryDto>> retrieveCategories() {
     return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
   }
 
-  @PutMapping("/category")
+  @PutMapping()
   public ResponseEntity<CategoryDto> updateCategory(@RequestBody final CategoryDto category)
       throws NotFoundException {
     return new ResponseEntity<>(categoryService.updateCategory(category), HttpStatus.OK);
   }
 
-  @DeleteMapping("/category/{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<CategoryDto> deleteCategory(@PathVariable("id") final Long categoryId)
       throws NotFoundException {
     return new ResponseEntity<>(categoryService.deleteCategory(categoryId), HttpStatus.NO_CONTENT);
