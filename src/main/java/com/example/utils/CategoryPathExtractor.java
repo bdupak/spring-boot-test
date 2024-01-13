@@ -7,7 +7,7 @@ public class CategoryPathExtractor {
   private static final String DELIMITER = "/";
 
   public static String extractFullCategoryPath(final Category category) {
-    if(Objects.isNull(category)) {
+    if(Objects.isNull(category) || Objects.isNull(category.getName())) {
       return null;
     }
     StringBuilder fullCategoryPath = new StringBuilder(category.getName());
