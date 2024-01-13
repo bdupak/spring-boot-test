@@ -34,7 +34,7 @@ public class ProductController {
     return new ResponseEntity<>(productService.saveProduct(product), HttpStatus.OK);
   }
 
-  @GetMapping("/products")
+  @GetMapping("/products") //TODO should be product
   public ResponseEntity<List<ProductDto>> retrieveProducts() {
     return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
   }
@@ -48,6 +48,6 @@ public class ProductController {
   @DeleteMapping("/product/{id}")
   public ResponseEntity<ProductDto> deleteProduct(@PathVariable("id") final Long productId)
       throws NotFoundException {
-    return new ResponseEntity<>(productService.deleteProduct(productId), HttpStatus.OK);
+    return new ResponseEntity<>(productService.deleteProduct(productId), HttpStatus.NO_CONTENT);
   }
 }

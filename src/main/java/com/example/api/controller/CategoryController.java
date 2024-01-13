@@ -1,7 +1,6 @@
 package com.example.api.controller;
 
 import com.example.database.dto.CategoryDto;
-import com.example.database.model.Category;
 import com.example.database.service.CategoryService;
 import com.example.exception.NotFoundException;
 import java.util.List;
@@ -50,6 +49,6 @@ public class CategoryController {
   @DeleteMapping("/category/{id}")
   public ResponseEntity<CategoryDto> deleteCategory(@PathVariable("id") final Long categoryId)
       throws NotFoundException {
-    return new ResponseEntity<>(categoryService.deleteCategory(categoryId), HttpStatus.OK);
+    return new ResponseEntity<>(categoryService.deleteCategory(categoryId), HttpStatus.NO_CONTENT);
   }
 }
