@@ -21,8 +21,6 @@
     <java.version>11</java.version>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
-    <spring.version>2.7.0</spring.version>
-    <hibernate.version>5.5.9.Final</hibernate.version>
   </properties>
 
   <dependencies>
@@ -42,6 +40,10 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
@@ -75,10 +77,6 @@
       <artifactId>jjwt-api</artifactId>
       <version>0.11.2</version>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>javax.xml.bind</groupId>-->
-<!--      <artifactId>jaxb-api</artifactId>-->
-<!--    </dependency>-->
   </dependencies>
   <build>
     <plugins>
