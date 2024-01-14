@@ -1,6 +1,6 @@
 package com.example.utils;
 
-import com.example.database.model.Category;
+import com.example.database.entity.Category;
 import java.util.Objects;
 
 public class CategoryPathExtractor {

@@ -1,6 +1,6 @@
 package com.example.database.dto;
 
-import com.example.database.model.Category;
+import com.example.database.entity.Category;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import lombok.Data;

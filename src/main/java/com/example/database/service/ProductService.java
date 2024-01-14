@@ -2,7 +2,7 @@ package com.example.database.service;
 
 import com.example.mapper.ProductMapper;
 import com.example.database.dto.ProductDto;
-import com.example.database.model.Product;
+import com.example.database.entity.Product;
 import com.example.database.repository.ProductRepository;
 import com.example.exception.NotFoundException;
 import java.util.List;

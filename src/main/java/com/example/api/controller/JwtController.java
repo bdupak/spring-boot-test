@@ -1,7 +1,7 @@
 package com.example.api.controller;
 
 import com.example.database.dto.JwtResponseDto;
-import com.example.database.model.User;
+import com.example.database.entity.User;
 import com.example.database.service.JwtUserDetailsService;
 import com.example.security.jwt.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;

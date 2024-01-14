@@ -1,7 +1,7 @@
 package com.example.mapper;
 
 import com.example.database.dto.ProductDto;
-import com.example.database.model.Product;
+import com.example.database.entity.Product;
 import com.example.exception.NotFoundException;
 import com.example.utils.CategoryPathExtractor;
 import com.example.utils.CurrencyConverter;

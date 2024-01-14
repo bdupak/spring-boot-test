@@ -1,7 +1,7 @@
 package com.example.utils;
 
 import com.example.database.dto.CurrencyDto;
-import com.example.database.model.Product;
+import com.example.database.entity.Product;
 import com.example.exception.NotFoundException;
 import java.math.BigDecimal;
 import java.math.MathContext;
