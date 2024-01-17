@@ -1,5 +1,6 @@
 package com.example.security.jwt;
 
+import com.example.database.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,13 +15,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class TokenManager {
 
+  private static final String USERNAME_KEY = "username";
+  private static final String ROLE_KEY = "role";
   @Value("${spring.security.token.validity}")
   private long tokenValidity;
   @Value("${spring.security.token.secret}")
   private String jwtSecret;
 
   public String generateJwtToken(final UserDetails userDetails) {
-    final Map<String, Object> claims = new HashMap<>();
+    Map<String, Object> claims = new HashMap<>();
+    claims.put(USERNAME_KEY, userDetails.getUsername());
+    claims.put(ROLE_KEY, ((User) userDetails).getRole());
+
     return Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername())
         .setIssuedAt(new Date(System.currentTimeMillis()))
         .setExpiration(new Date(System.currentTimeMillis() + tokenValidity))
