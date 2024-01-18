@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Objects;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +25,11 @@ public class CurrencyConverter {
     if (DEFAULT_CURRENCY.equals(product.getCurrency())) {
       return product;
     } else {
+      Logger logger = LoggerFactory.getLogger(CurrencyConverter.class);
+      long nanoTime = System.nanoTime();
+      logger.info("currency api starting ");
       final CurrencyDto currencyDto = currencyClient.getCurrencyRate();
+      logger.info("currency api ended {}", System.nanoTime() - nanoTime);
       BigDecimal exchangeRate = null;
       if (Objects.nonNull(currencyDto) && Objects.nonNull(currencyDto.getRates())) {
         exchangeRate = currencyDto.getRates().get(product.getCurrency());
